@@ -1,16 +1,32 @@
-# belajar_state_management_bloc
+# Belajar Global State Management Bloc
 
-A new Flutter project.
+Repository ini menyediakan source pelatihan untuk topik Global State Management menggunakan BLoC
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## **📦 Install Package**
+Tambahkan dependency `bloc`
+```bash
+flutter pub add bloc
+flutter pub add flutter_bloc
+```
+---
+## 🗂️ Repository Structure
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```plaintext
+.
+├── lib/                                # Folder source code utama
+│   ├── pages/                          # Folder untuk halaman (pages) aplikasi
+│   │   ├── Homepage.dart               # Halaman utama aplikasi
+│   │   └── Secondpage.dart             # Halaman kedua aplikasi (mengakses nilai dari state yang diubah pada halaman utama)
+│   │
+│   ├── widgets/                        # Folder untuk widget yang dapat digunakan ulang
+│   │   └── ThemeChangerButton.dart     # Widget tombol untuk mengubah tema
+│   │
+│   ├── bloc/                           # Folder untuk state management menggunakan Bloc
+│   │   ├── CounterCubit.dart           # Cubit untuk fitur counter
+│   │   └── ThemeChangerCubit.dart      # Cubit untuk mengelola tema aplikasi
+│   │
+│   └── main.dart                       # Entry point aplikasi Flutter
+│
+└── pubspec.yaml                        # File untuk mencantumkan dependency dan metadata proyek
