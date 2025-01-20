@@ -1,16 +1,20 @@
-# belajar_input_widgets
+# Belajar Input Widget
 
-A new Flutter project.
+## 🗂️ Repository Structure
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```plaintext
+.
+├── belajar_input_widgets/            # Flutter frontend project
+│   └── lib/                          # Flutter source code
+│       |── pages                     # Flutter dependencies
+│       |    └── Homepage.dart        # Homepage
+|       └── widgets                   # List Widgets
+│           |── TextInputWidget.dart  # Sample Text Input Widget
+│           |── CheckBoxWidget.dart   # Sample Checkbox Widget
+│           |── RadioWidget.dart      # Sample Radio Widget
+│           |── SwitchWidget.dart     # Sample Switch Widget
+│           |── SliderWidget.dart     # Sample Slider Widget
+│           |── DropdownWidget.dart   # Sample Dropdown Widget
+│           └── FormWidget.dart       # Sample Form Widget
+│
+└── pubspec.yaml                      # Dependencies
