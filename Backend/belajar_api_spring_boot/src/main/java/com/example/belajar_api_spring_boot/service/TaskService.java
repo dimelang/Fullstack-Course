@@ -90,6 +90,7 @@ public class TaskService {
         return convertToGetRequestDTO(savedTask);
     }
 
+    // update task
     @Transactional
     public TaskGetRequestDTO updateTask(TaskPutRequestDTO taskDto, Long id) {
         Task selectedTask = taskRepository.findById(id).get();
@@ -113,6 +114,7 @@ public class TaskService {
         return convertToGetRequestDTO(updateTask);
     }
 
+    // delete task
     public Map<String, Object> deleteTask(Long id) {
         try {
             Task deteletedTask = taskRepository.findById(id).get();

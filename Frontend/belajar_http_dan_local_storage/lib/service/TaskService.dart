@@ -35,4 +35,24 @@ class Taskservice {
       throw Exception('Error saat mendapatkan data: ${e}');
     }
   }
+
+  // PUT request
+  Future<bool> updateStatus(String url, int taskId, bool status) async {
+    try {
+      final uri = Uri.parse("$url/$taskId");
+      final response = await http.patch(uri,
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({'status': status}));
+      if (response.statusCode == 200) {
+        print("Berhasil ubah status");
+        return true;
+      } else {
+        print("Gagal ubah status");
+        return false;
+      }
+    } catch (e) {
+      print("Error: $e");
+      return false;
+    }
+  }
 }

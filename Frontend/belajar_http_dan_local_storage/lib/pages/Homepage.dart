@@ -17,17 +17,39 @@ class _HomepageState extends State<Homepage> {
   late Future<List<Taskgetrequest>> taskFuture;
   final Taskservice taskservice = Taskservice();
 
-  void getTasks(String url, String paramKey, String paramVal) async {
-    setState(() {
-      taskFuture =
-          taskservice.getTask(url, paramKey: paramKey, paramVal: paramVal);
-    });
+  @override
+  void initState() {
+    super.initState();
+    fetchTasks(); // Memuat data awal
   }
 
-  void toggleStatus(int index, bool newValue, List<dynamic> task) {
-    setState(() {
-      task[index]['status'] = newValue;
-    });
+  // Fungsi untuk memuat tugas dari API
+  void fetchTasks() {
+    final userProvider = Provider.of<Userprovider>(context, listen: false);
+    final user = userProvider.getUser();
+
+    if (user != null) {
+      taskFuture = taskservice.getTask(
+        "http://localhost:8080/api/tasks/user",
+        paramKey: 'id',
+        paramVal: user.id.toString(),
+      );
+    }
+  }
+
+  Future<void> toggleStatus(
+      int idTask, bool newValue, List<Taskgetrequest> tasks, int index) async {
+    var url = "http://localhost:8080/api/tasks";
+    bool response = await taskservice.updateStatus(url, idTask, newValue);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content:
+            Text(response ? "Update status berhasil" : "Update status gagal"),
+        backgroundColor: response ? Colors.green : Colors.red));
+    if (response) {
+      setState(() {
+        tasks[index].status = newValue;
+      });
+    }
   }
 
   @override
@@ -50,8 +72,6 @@ class _HomepageState extends State<Homepage> {
         ),
       );
     }
-
-    getTasks("http://localhost:8080/api/tasks/user", 'id', user.id.toString());
 
     return Scaffold(
         appBar: AppBar(
@@ -93,7 +113,6 @@ class _HomepageState extends State<Homepage> {
                       itemCount: tasks.length,
                       itemBuilder: (context, index) {
                         final task = tasks[index];
-                        print(task);
                         return Container(
                           margin: EdgeInsets.all(10),
                           padding: EdgeInsets.all(12),
@@ -118,7 +137,8 @@ class _HomepageState extends State<Homepage> {
                                   value: task.status,
                                   onChanged: (value) {
                                     if (value != null) {
-                                      toggleStatus(index, value, tasks);
+                                      toggleStatus(
+                                          task.id, value, tasks, index);
                                     }
                                   },
                                 ),

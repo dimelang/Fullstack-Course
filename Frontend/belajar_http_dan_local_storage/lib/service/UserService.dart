@@ -65,14 +65,11 @@ class Userservice {
           body: jsonEncode(data));
 
       if (response.statusCode == 200) {
-        print("User registered: ${response.body}");
         return true;
       } else {
-        print("Failed user registered: ${response.body}");
         return false;
       }
     } catch (e) {
-      print("Error: ${e}");
       return false;
     }
   }

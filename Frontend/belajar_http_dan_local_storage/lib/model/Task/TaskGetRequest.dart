@@ -3,7 +3,7 @@ class Taskgetrequest {
   final String title;
   final String description;
   final String priority;
-  final bool status;
+  bool status;
 
   // constructor
   Taskgetrequest(
