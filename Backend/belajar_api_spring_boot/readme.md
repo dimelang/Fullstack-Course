@@ -1,6 +1,6 @@
 # Belajar API Spring Boot
 
-Repository ini menyediakan source code pelatihan membuat API sederhana untuk aplikasi Todo-list menggunakan Spring Boot. Pemanfaatan program ini dapat menggunakan program pada [repository](https://google.com)
+Repository ini menyediakan source code pelatihan membuat API sederhana untuk aplikasi Todo-list menggunakan Spring Boot. Pemanfaatan program ini dapat menggunakan program pada [repository](https://github.com/dimelang/Fullstack-Course/tree/main/Frontend/belajar_http_dan_local_storage)
 
 ---
 ## 🗂️ Repository Structure

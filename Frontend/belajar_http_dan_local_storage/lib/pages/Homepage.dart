@@ -88,105 +88,112 @@ class _HomepageState extends State<Homepage> {
                   );
                 } else if (snapshot.hasData) {
                   final tasks = snapshot.data!;
-                  return ListView.builder(
-                    itemCount: tasks.length,
-                    itemBuilder: (context, index) {
-                      final task = tasks[index];
-                      print(task);
-                      return Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.grey.shade300),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                blurRadius: 5,
-                                offset: Offset(0, 3))
-                          ],
-                        ),
-                        child: Row(
-                          spacing: 10,
-                          children: [
-                            Expanded(
-                              flex: 0,
-                              child: Checkbox(
-                                activeColor: Colors.blue,
-                                value: task.status,
-                                onChanged: (value) {
-                                  if (value != null) {
-                                    toggleStatus(index, value, tasks);
-                                  }
-                                },
+                  if (tasks.length != 0) {
+                    return ListView.builder(
+                      itemCount: tasks.length,
+                      itemBuilder: (context, index) {
+                        final task = tasks[index];
+                        print(task);
+                        return Container(
+                          margin: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey.shade300),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3))
+                            ],
+                          ),
+                          child: Row(
+                            spacing: 10,
+                            children: [
+                              Expanded(
+                                flex: 0,
+                                child: Checkbox(
+                                  activeColor: Colors.blue,
+                                  value: task.status,
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      toggleStatus(index, value, tasks);
+                                    }
+                                  },
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 10,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    spacing: 5,
-                                    children: [
-                                      Text(
-                                        task.title,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.blue,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        task.priority,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black54,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    task.description,
-                                    style: TextStyle(
-                                        fontSize: 14, color: Colors.black54),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                                flex: 4,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  spacing: 10,
+                              Expanded(
+                                flex: 10,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    IconButton(
-                                      tooltip: "Edit",
-                                      onPressed: () {},
-                                      icon: Icon(Icons.edit),
-                                      color: Colors.orange,
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      spacing: 5,
+                                      children: [
+                                        Text(
+                                          task.title,
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          task.priority,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
                                     ),
-                                    IconButton(
-                                      tooltip: "Hapus",
-                                      onPressed: () {},
-                                      icon: Icon(Icons.delete),
-                                      color: Colors.red,
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      task.description,
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.black54),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
                                     ),
                                   ],
-                                ))
-                          ],
-                        ),
-                      );
-                    },
-                  );
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 4,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    spacing: 10,
+                                    children: [
+                                      IconButton(
+                                        tooltip: "Edit",
+                                        onPressed: () {},
+                                        icon: Icon(Icons.edit),
+                                        color: Colors.orange,
+                                      ),
+                                      IconButton(
+                                        tooltip: "Hapus",
+                                        onPressed: () {},
+                                        icon: Icon(Icons.delete),
+                                        color: Colors.red,
+                                      ),
+                                    ],
+                                  ))
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: Text("Data belum tersedia!"),
+                    );
+                  }
                 } else {
                   return Center(
                     child: Text("Data tidak tersedia!"),
