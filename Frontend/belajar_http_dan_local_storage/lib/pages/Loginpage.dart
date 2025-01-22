@@ -133,11 +133,11 @@ class _LoginpageState extends State<Loginpage> {
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
                       var url = "http://localhost:8080/api/users/login";
-                      var response = await userservice.login(url, {
-                        "email": _emailController.text,
-                        "password": _passwordController.text
-                      });
-                      if (response.isNotEmpty) {
+                      try {
+                        var response = await userservice.login(url, {
+                          "email": _emailController.text,
+                          "password": _passwordController.text
+                        });
                         var user = response.first;
                         Provider.of<Loginstatusprovider>(context, listen: false)
                             .changeLoginStatus(true);
@@ -145,11 +145,14 @@ class _LoginpageState extends State<Loginpage> {
                         Provider.of<Userprovider>(context, listen: false)
                             .setUser(user);
                         Navigator.pushReplacementNamed(context, '/home');
-                      } else {
+                      } catch (e) {
+                        final errorMessage =
+                            e.toString().replaceAll('Exception: ', '');
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content: Text(
-                                  "Login gagal. Periksa kembali kredensial Anda.")),
+                              content: Text(errorMessage),
+                              backgroundColor:
+                                  Color(helper.colorFromHex("#79D7BE"))),
                         );
                       }
                     }

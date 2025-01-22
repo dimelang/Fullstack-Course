@@ -1,5 +1,4 @@
 class Taskpostrequest {
-  final int id;
   final String title;
   final String description;
   final String priority;
@@ -8,8 +7,7 @@ class Taskpostrequest {
 
   // constructor
   Taskpostrequest(
-      {required this.id,
-      required this.title,
+      {required this.title,
       required this.description,
       required this.priority,
       required this.status,
@@ -18,7 +16,6 @@ class Taskpostrequest {
   // convert JSON to Task class
   factory Taskpostrequest.fromJson(Map<String, dynamic> json) {
     return Taskpostrequest(
-        id: json['id'],
         title: json['title'],
         description: json['description'],
         priority: json['priority'],
@@ -29,7 +26,6 @@ class Taskpostrequest {
   // convert Task class to JSON
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'title': title,
       'description': description,
       'priority': priority,

@@ -1,5 +1,7 @@
 import 'package:belajar_http_dan_local_storage/helper/Helper.dart';
 import 'package:belajar_http_dan_local_storage/model/Task/TaskGetRequest.dart';
+import 'package:belajar_http_dan_local_storage/pages/AddTaskpage.dart';
+import 'package:belajar_http_dan_local_storage/pages/UpdateTaskpage.dart';
 import 'package:belajar_http_dan_local_storage/provider/LoginStatusProvider.dart';
 import 'package:belajar_http_dan_local_storage/provider/UserProvider.dart';
 import 'package:belajar_http_dan_local_storage/service/TaskService.dart';
@@ -23,20 +25,23 @@ class _HomepageState extends State<Homepage> {
     fetchTasks(); // Memuat data awal
   }
 
-  // Fungsi untuk memuat tugas dari API
+  // Fungsi untuk memuat seluruh task
   void fetchTasks() {
     final userProvider = Provider.of<Userprovider>(context, listen: false);
     final user = userProvider.getUser();
 
     if (user != null) {
-      taskFuture = taskservice.getTask(
-        "http://localhost:8080/api/tasks/user",
-        paramKey: 'id',
-        paramVal: user.id.toString(),
-      );
+      setState(() {
+        taskFuture = taskservice.getTask(
+          "http://localhost:8080/api/tasks/user",
+          paramKey: 'id',
+          paramVal: user.id.toString(),
+        );
+      });
     }
   }
 
+  // fungsi untuk udpate status task (CheckboxWidget)
   Future<void> toggleStatus(
       int idTask, bool newValue, List<Taskgetrequest> tasks, int index) async {
     var url = "http://localhost:8080/api/tasks";
@@ -44,7 +49,9 @@ class _HomepageState extends State<Homepage> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content:
             Text(response ? "Update status berhasil" : "Update status gagal"),
-        backgroundColor: response ? Colors.green : Colors.red));
+        backgroundColor: response
+            ? Color(Helper().colorFromHex("#16C47F"))
+            : Color(Helper().colorFromHex("#F93827"))));
     if (response) {
       setState(() {
         tasks[index].status = newValue;
@@ -64,6 +71,7 @@ class _HomepageState extends State<Homepage> {
       );
     }
 
+    // cek jika data user telah disimpan pada shared preferences sebelumnya
     final user = userProvider.getUser();
     if (user == null) {
       return Scaffold(
@@ -74,6 +82,30 @@ class _HomepageState extends State<Homepage> {
     }
 
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return CreatTaskPage();
+              },
+            )).then(
+              (value) {
+                print(value);
+                if (value == true) {
+                  fetchTasks();
+                }
+              },
+            );
+          },
+          shape: CircleBorder(eccentricity: 0.7),
+          backgroundColor: Color(helper.colorFromHex('#2E5077')),
+          hoverColor: Color(helper.colorFromHex('#436285')),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 26,
+          ),
+        ),
         appBar: AppBar(
           backgroundColor: Color(helper.colorFromHex('#2E5077')),
           automaticallyImplyLeading: false,
@@ -92,7 +124,10 @@ class _HomepageState extends State<Homepage> {
                     },
                   );
                 },
-                icon: Icon(Icons.logout)),
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                )),
           ],
         ),
         body: Padding(
@@ -192,13 +227,47 @@ class _HomepageState extends State<Homepage> {
                                     children: [
                                       IconButton(
                                         tooltip: "Edit",
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                            builder: (context) {
+                                              return Updatetaskpage(
+                                                  taskgetrequest: task);
+                                            },
+                                          )).then(
+                                            (value) {
+                                              if (value) {
+                                                fetchTasks();
+                                              }
+                                            },
+                                          );
+                                        },
                                         icon: Icon(Icons.edit),
                                         color: Colors.orange,
                                       ),
                                       IconButton(
                                         tooltip: "Hapus",
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          var url =
+                                              "http://localhost/api/tasks";
+                                          bool response = await taskservice
+                                              .deleteTask(url, task.id);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(response
+                                                      ? "Berhasil menghapus task"
+                                                      : "Gagal menghapus task"),
+                                                  backgroundColor: response
+                                                      ? Color(Helper()
+                                                          .colorFromHex(
+                                                              "#16C47F"))
+                                                      : Color(Helper()
+                                                          .colorFromHex(
+                                                              "#F93827"))));
+                                          if (response) {
+                                            fetchTasks();
+                                          }
+                                        },
                                         icon: Icon(Icons.delete),
                                         color: Colors.red,
                                       ),

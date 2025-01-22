@@ -47,11 +47,13 @@ class Userservice {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         return parseUserResponse(data);
+      } else if (response.statusCode == 404) {
+        throw Exception('Pengguna tidak ditemukan');
       } else {
         throw Exception('Gagal login: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Error saat mendapatkan data: ${e}');
+      throw Exception('${e}');
     }
   }
 

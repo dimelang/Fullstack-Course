@@ -41,7 +41,7 @@ public class TaskService {
 
     // convert Task to post request DTO
     public TaskPostRequestDTO convertToPostRequestDTO(Task task) {
-        return TaskPostRequestDTO.builder().id(task.getId()).title(task.getTitle()).description(task.getDescription())
+        return TaskPostRequestDTO.builder().title(task.getTitle()).description(task.getDescription())
                 .priority(task.getDescription()).status(task.getStatus()).user_id(task.getUser().getId()).build();
     }
 
@@ -77,7 +77,6 @@ public class TaskService {
     @Transactional
     public TaskGetRequestDTO createTask(TaskPostRequestDTO taskDto) {
         Task task = new Task();
-        task.setId(taskDto.getId());
         task.setTitle(taskDto.getTitle());
         task.setDescription(taskDto.getDescription());
         task.setPriority(Priority.valueOf(taskDto.getPriority()));
