@@ -101,17 +101,16 @@ class Taskservice {
   // DELETE request
   Future<bool> deleteTask(String url, int taskId) async {
     try {
-      final uri = Uri.parse(url).replace(queryParameters: {"id": taskId});
-      print(uri);
-      return false;
-      // final response = await http.delete(uri);
-      // if (response.statusCode == 200) {
-      //   print("Berhasil hapus task");
-      //   return true;
-      // } else {
-      //   print("Gagal hapus task");
-      //   return false;
-      // }
+      final uri =
+          Uri.parse(url).replace(queryParameters: {"id": taskId.toString()});
+      final response = await http.delete(uri);
+      if (response.statusCode == 200) {
+        print("Berhasil hapus task");
+        return true;
+      } else {
+        print("Gagal hapus task");
+        return false;
+      }
     } catch (e) {
       print("Error: $e");
       return false;

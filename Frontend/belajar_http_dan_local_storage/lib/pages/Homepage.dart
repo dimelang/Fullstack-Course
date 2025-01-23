@@ -249,7 +249,7 @@ class _HomepageState extends State<Homepage> {
                                         tooltip: "Hapus",
                                         onPressed: () async {
                                           var url =
-                                              "http://localhost/api/tasks";
+                                              "http://localhost:8080/api/tasks";
                                           bool response = await taskservice
                                               .deleteTask(url, task.id);
                                           ScaffoldMessenger.of(context)
