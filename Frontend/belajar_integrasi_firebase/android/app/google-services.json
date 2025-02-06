@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "897050920243",
+    "firebase_url": "https://sample-project-1c5a1-default-rtdb.firebaseio.com",
+    "project_id": "sample-project-1c5a1",
+    "storage_bucket": "sample-project-1c5a1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897050920243:android:679ac7bd0a6e7f3e726a46",
+        "android_client_info": {
+          "package_name": "com.example.belajar_integrasi_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbLpQSmG0BEW5eJlmxx01w69iONJs1A1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
